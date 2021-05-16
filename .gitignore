@@ -6,3 +6,7 @@ lib/
 build-NodeStudio-Desktop_Qt_6_1_0_MSVC2019_64bit-Debug/.qmake.stash
 build-NodeStudio-Desktop_Qt_6_1_0_MSVC2019_64bit-Debug/Makefile
 NodeStudio/NodeStudio.pro.user
+.vs/
+application/debug
+application/release
+NodeStudio/debug/
