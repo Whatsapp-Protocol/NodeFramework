@@ -1,5 +1,4 @@
 #include "npm_runner.h"
-#include "node_runner.h"
 #include <QProcess>
 
 static QString GetCliPath() {
@@ -11,48 +10,13 @@ static QString GenerateOutputParam(const QString& output) {
 	return QString("--out=%1").arg(output);
 }
 
-QString NpmRunner::Init(const QString& output)
+void NpmRunner::Run(const QStringList& cmds, const QString& output, NodeRunner::RunnerOutputDelegate delegate)
 {
-	QStringList cmds = GenerateCommonCmds();
-	cmds.push_back("init");
-	cmds.push_back("-y");
-
-	cmds.push_back(GenerateOutputParam(output));
-	return NodeRunner::Run(cmds);
+	QStringList runner_cmds = GenerateCommonCmds();
+	runner_cmds.append(cmds);
+	runner_cmds.append(GenerateOutputParam(output));
+	NodeRunner::Run(runner_cmds, std::move(delegate));
 }
-
-QString NpmRunner::Install(const QString& component, const QString& output)
-{
-	QStringList cmds = GenerateCommonCmds();
-	cmds.push_back("install");
-	if (!component.isEmpty())
-	{
-		cmds.push_back(component);
-	}
-
-	cmds.push_back(GenerateOutputParam(output));
-	return NodeRunner::Run(cmds);
-}
-
-QString NpmRunner::UnInstall(const QString& component, const QString& output)
-{
-	QStringList cmds = GenerateCommonCmds();
-	cmds.push_back("uninstall");
-	cmds.push_back(component);
-
-	cmds.push_back(GenerateOutputParam(output));
-	return NodeRunner::Run(cmds);
-}
-
-QString NpmRunner::Update(const QString& output)
-{
-	QStringList cmds = GenerateCommonCmds();
-	cmds.push_back("update");
-
-	cmds.push_back(GenerateOutputParam(output));
-	return NodeRunner::Run(cmds);
-}
-
 
 QStringList NpmRunner::GenerateCommonCmds()
 {
