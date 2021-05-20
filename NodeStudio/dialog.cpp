@@ -1,6 +1,5 @@
 ﻿#include "dialog.h"
 #include <stdio.h>
-#include <windows.h>
 #include <QFile>
 #include <QMutex>
 #include <QWaitCondition>
