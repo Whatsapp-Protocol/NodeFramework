@@ -1,0 +1,3 @@
+[submodule "assets/cli"]
+	path = NodeStudio/assets/cli
+	url = https://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@github.com/Whatsapp-Protocol/cli.git
