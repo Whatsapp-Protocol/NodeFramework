@@ -1,4 +1,4 @@
-﻿#ifndef MESSAGELOOPERIMPL_H
+#ifndef MESSAGELOOPERIMPL_H
 #define MESSAGELOOPERIMPL_H
 #include <QThread>
 #include <QTimer>
@@ -50,6 +50,10 @@ public:
 	uint64_t PostRunable(Runable runable);
 	uint64_t PostRunable(Runable runable, uint64_t timeout);
 
+    static MessageLooperImpl* WorkLooper();
+    static MessageLooperImpl* MainLooper();
+    
+    
 signals:
 	void FireDoWork();
 	void FireStartTimer(int);

@@ -1,10 +1,7 @@
 #include "npm_runner.h"
 #include <QProcess>
 
-static QString GetCliPath() {
-	QString cli_path = "E:\\cli\\source\\bin\\npm-cli.js";
-	return cli_path;
-}
+static QString s_cli_path;
 
 static QString GenerateOutputParam(const QString& output) {
 	return QString("--out=%1").arg(output);
@@ -20,9 +17,15 @@ void NpmRunner::Run(const QStringList& cmds, const QString& output, NodeRunner::
 
 QStringList NpmRunner::GenerateCommonCmds()
 {
-	static QString cli_path = GetCliPath();
-
+    if (s_cli_path.isEmpty()) {
+        printf("cli is empty");
+    }
 	QStringList common_cmds;
-	common_cmds.push_back(cli_path);
+	common_cmds.push_back(s_cli_path);
 	return common_cmds;
 }
+
+void NpmRunner::SetCliPath(const QString &cli_path) {
+    s_cli_path = cli_path;
+}
+

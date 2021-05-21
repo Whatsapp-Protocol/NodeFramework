@@ -6,6 +6,7 @@
 class NpmRunner
 {
 public:
+    static void SetCliPath(const QString& cli_path);
 	static void Run(const QStringList& cmds, const QString& output, NodeRunner::RunnerOutputDelegate delegate = nullptr);
 	
 private:

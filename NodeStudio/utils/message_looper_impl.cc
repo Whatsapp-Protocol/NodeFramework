@@ -1,4 +1,4 @@
-﻿#include "message_looper_impl.h"
+#include "message_looper_impl.h"
 #include "time_util.h"
 BEGIN_NAMESPACE_LOOPER
 MessageLooperImpl::MessageLooperImpl(MessageLooperType type,
@@ -29,6 +29,16 @@ MessageLooperImpl::MessageLooperImpl(MessageLooperType type,
 	if (type != LooperType_UI) {
 		work_thread_->start();
 	}
+}
+
+MessageLooperImpl* MessageLooperImpl::WorkLooper() {
+    static MessageLooperImpl* work_looper = new MessageLooperImpl(LooperType_WORK, "work");
+    return work_looper;
+}
+
+MessageLooperImpl* MessageLooperImpl::MainLooper() {
+    static MessageLooperImpl* ui_looper = new MessageLooperImpl(LooperType_UI, "main");
+    return ui_looper;
 }
 
 MessageLooperImpl::~MessageLooperImpl() {
