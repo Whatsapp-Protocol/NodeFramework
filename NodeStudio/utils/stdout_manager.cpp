@@ -1,4 +1,4 @@
-﻿#include "stdout_manager.h"
+#include "stdout_manager.h"
 #include <QDir>
 #include <QFile>
 #include <QMutexLocker>
@@ -40,6 +40,7 @@ StdoutManager::StdoutManager() {
       if (line.length() == 0) {
         QThread::msleep(200);
       } else {
+        qDebug() << line.toStdString().c_str();
         QMutexLocker lock(&mutex_);
         for (auto item : delegates_) {
           item->OnOutput(line.toStdString().c_str());

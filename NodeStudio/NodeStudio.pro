@@ -21,6 +21,8 @@ HEADERS += \
 FORMS += \
     dialog.ui
 
+
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
@@ -29,3 +31,15 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     cli.qrc
 
+ios{
+
+LIBS += -F$$PWD/libs/ios/ -framework NodeMobile
+
+INCLUDEPATH += $$PWD/libs/ios
+DEPENDPATH += $$PWD/libs/ios
+
+IOS_FRAMEWORK.files = $$PWD/libs/ios/NodeMobile.framework  # For example /Library/aSharedLibrary/exampleLibrary.dylib
+IOS_FRAMEWORK.path = Frameworks   # This is the essential keyword for qmake to add the desired Framework as "embedded Framework"
+QMAKE_BUNDLE_DATA += IOS_FRAMEWORK
+
+}

@@ -9,7 +9,11 @@ static QString GenerateOutputParam(const QString& output) {
 
 void NpmRunner::Run(const QStringList& cmds, const QString& output, NodeRunner::RunnerOutputDelegate delegate)
 {
-	QStringList runner_cmds = GenerateCommonCmds();
+    QStringList runner_cmds;
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+    runner_cmds.append("node");
+#endif
+    runner_cmds.append(GenerateCommonCmds());
 	runner_cmds.append(cmds);
 	runner_cmds.append(GenerateOutputParam(output));
 	NodeRunner::Run(runner_cmds, std::move(delegate));

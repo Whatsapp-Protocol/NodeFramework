@@ -13,28 +13,24 @@
 
 Dialog::Dialog(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog) {
 	ui->setupUi(this);
-    StdoutManager::Instance().AddDelegate(this);
+    StdoutManager::Instance();
 	QDir document_dir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
     QString cli_dir = document_dir.absoluteFilePath("NodeStudio/cli");
     
-    QString exist_path =document_dir.absoluteFilePath("NodeStudio/cli/exit_flag");
+    /*QString exist_path =document_dir.absoluteFilePath("NodeStudio/cli/exit_flag");
     if (!QFile::exists(exist_path)) {
         BASE_LOOPER::MessageLooperImpl::WorkLooper()->PostRunable([cli_dir, exist_path](){
             BASE_FILE_UTIL::CopyDir(":/assets/cli", cli_dir);
             QFile exist_file(exist_path);
             exist_file.open(QFile::Truncate | QFile::ReadWrite);
         });
-    }
+    }*/
     QString cli_path = document_dir.absoluteFilePath("NodeStudio/cli/bin/npm-cli.js");
     NpmRunner::SetCliPath(cli_path);
 }
 
 Dialog::~Dialog() {
 	delete ui;
-}
-
-void Dialog::OnOutput(const QString& outpu) {
-	qDebug() << outpu;
 }
 
 void Dialog::on_pushButton_clicked() {
@@ -87,14 +83,28 @@ void Dialog::on_pushButton_clicked() {
 
 void Dialog::on_pushButton_2_clicked()
 {
-    printf("aaa\r\n");
-    std::cout << "aa" << std::endl;
-    QMessageBox msgBox;
-    msgBox.setText("The document has been modified.");
-    msgBox.exec();
+    QDir document_dir(QStandardPaths::writableLocation(QStandardPaths::TempLocation));
+    QString cli_dir = document_dir.absoluteFilePath("test");
+    /*{
+                    QStringList cmds;
+                    cmds.push_back("init");
+                    cmds.push_back("-y");
+                    NpmRunner::Run(cmds, cli_dir, [](const
+    QString& output) { qDebug() << output;
 
+                                    });
+
+}*/
+{
+                QStringList cmds;
+                cmds.push_back("install");
+                cmds.push_back("vue-cli");
+                NpmRunner::Run(cmds, cli_dir, [](const QString&
+output) { qDebug() << output;
+
+                                });
 }
-
+}
 
 void Dialog::on_pushButton_3_clicked(bool checked)
 {
