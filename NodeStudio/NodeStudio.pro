@@ -43,3 +43,17 @@ IOS_FRAMEWORK.path = Frameworks   # This is the essential keyword for qmake to a
 QMAKE_BUNDLE_DATA += IOS_FRAMEWORK
 
 }
+
+android{
+#https://doc.qt.io/qt-5/qmake-variable-reference.html
+LIBS += -L$$PWD/libs/android/bin/x86/ -lnode
+LIBS += -L$$PWD/libs/android/bin/armeabi-v7a/ -lnode
+
+INCLUDEPATH += $$PWD/libs/android/include/node
+DEPENDPATH += $$PWD/libs/android/include/node
+
+ANDROID_EXTRA_LIBS += $$PWD/libs/android/bin/x86/libnode.so
+ANDROID_EXTRA_LIBS += $$PWD/libs/android/bin/armeabi-v7a/libnode.so
+
+}
+
