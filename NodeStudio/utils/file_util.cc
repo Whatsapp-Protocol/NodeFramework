@@ -9,6 +9,7 @@ bool CopyDir(const QString& src, const QString& dest)
 	QDir q_dest_dir(dest);
 	q_dest_dir.mkpath(dest);
 	while (dirIterator.hasNext()) {
+        dirIterator.next();
 		QFileInfo fileInfo = dirIterator.fileInfo();
 		QString dest_path = q_dest_dir.absoluteFilePath(fileInfo.fileName());
 		if (fileInfo.isFile())
@@ -22,7 +23,6 @@ bool CopyDir(const QString& src, const QString& dest)
 		{
 			CopyDir(fileInfo.absoluteFilePath(), dest_path);
 		}
-		dirIterator.next();
 	}
 	return true;
 }
