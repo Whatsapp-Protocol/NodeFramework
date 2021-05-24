@@ -7,6 +7,8 @@
 #include <QWaitCondition>
 #ifdef Q_OS_IOS
 #include <NodeMobile/NodeMobile.h>
+#elif defined(Q_OS_ANDROID)
+#include <node.h>
 #endif
 
 #define MAX_WAITTIME 60*60*1000
@@ -96,6 +98,8 @@ void NodeRunner::Run(const QStringList& cmds, RunnerOutputDelegate delegate)
     //Start node, with argc and argv.
 #ifdef Q_OS_IOS
     node_start(argument_count,argv);
+#else
+    node::Start(argument_count, argv);
 #endif
     free(args_buffer);
 #endif
